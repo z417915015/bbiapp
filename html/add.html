@@ -6,9 +6,64 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			.mui-input-group .mui-input-row{
+				height: 43px;
+			}
+			ul{
+				float: right;
+			    width: 65%;
+			    margin-bottom: 0;
+			    padding-left: 0;
+			    border: 0;
+			}
+			.mui-table-view-cell{
+				padding: 11px 0px;
+				color: #a9a9a9;
+			}
+		</style>
 	</head>
 
 	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">标题</h1>
+		</header>
+		<div class="mui-content">
+		    <form class="mui-input-group">
+		        <div class="mui-input-row">
+		            <label>姓名</label>
+		            <input type="text" class="mui-input-clear" placeholder="请输入姓名">
+		        </div>
+		        <div class="mui-input-row">
+		            <label>联系电话</label>
+		            <input type="text" class="mui-input-clear" placeholder="请输入电话号码">
+		        </div>
+		        <div class="mui-input-row">
+		            <label>地区</label>
+		            <ul class="mui-table-view">
+		            	<li class="mui-table-view-cell">请选择地区</li>
+		            </ul>
+		        </div>
+		        <div class="mui-input-row">
+		            <label>详细地址</label>
+		            <input type="text" class="mui-input-clear" placeholder="请输入街道地址">
+		        </div>
+		        <div class="mui-input-row">
+		            <label>宽带类型</label>
+		            <ul class="mui-table-view">
+		            	<li class="mui-table-view-cell">请选择宽带类型</li>
+		            </ul>
+		        </div>
+		        <div class="mui-input-row">
+		            <label>宽带到期时间</label>
+		            <ul class="mui-table-view">
+		            	<li class="mui-table-view-cell">请选择日期</li>
+		            </ul>
+		        </div>
+		    </form>
+		    
+		</div>
 		<script src="../js/mui.min.js"></script>
 		<script src="add.js" type="text/javascript" charset="utf-8"></script>
 	</body>
