@@ -39,11 +39,11 @@
 		    <form class="mui-input-group">
 		        <div class="mui-input-row">
 		            <label>姓名</label>
-		            <input type="text" class="mui-input-clear" placeholder="请输入姓名">
+		            <input type="text" class="mui-input-clear" placeholder="请输入姓名" id="name">
 		        </div>
 		        <div class="mui-input-row">
 		            <label>联系电话</label>
-		            <input type="text" class="mui-input-clear" placeholder="请输入电话号码">
+		            <input type="text" class="mui-input-clear" placeholder="请输入电话号码" id="phone">
 		        </div>
 		        <div class="mui-input-row">
 		            <label>地区</label>
@@ -53,7 +53,7 @@
 		        </div>
 		        <div class="mui-input-row">
 		            <label>详细地址</label>
-		            <input type="text" class="mui-input-clear" placeholder="请输入街道地址">
+		            <input type="text" class="mui-input-clear" placeholder="请输入街道地址" id="address">
 		        </div>
 		        <div class="mui-input-row">
 		            <label>宽带类型</label>
@@ -69,12 +69,17 @@
 		        </div>
 		    </form>
 		    
+		    <div class="mui-content-padded">
+		    	<button type="button" class="mui-btn mui-btn-block mui-btn-blue" id="save">保存</button>
+		    </div>
+		    
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/mui.picker.js"></script>
 		<script src="../js/mui.poppicker.js"></script>
 		<script src="../js/mui.picker.all.js" type="text/javascript" charset="utf-8"></script>
 		<script src="city.data-3.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/SHA1.js" type="text/javascript" charset="utf-8"></script>
 		<script src="add.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 

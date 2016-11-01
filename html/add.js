@@ -1,6 +1,8 @@
 mui.init();
 
 mui.ready(function(){
+	var param = {};//
+	
 	//3级联示例 地区
 	var cityPicker3 = new mui.PopPicker({
 		layer: 3
@@ -12,6 +14,8 @@ mui.ready(function(){
 		cityPicker3.show(function(items) {
 			cityResult3.innerText = (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
 			cityResult3.style.color = "#000";
+			param.city = (items[0] || {}).text + " " + (items[1] || {}).text;
+			param.area = (items[2] || {}).text;
 			//返回 false 可以阻止选择框的关闭
 			//return false;
 		});
@@ -38,6 +42,7 @@ mui.ready(function(){
 		typePicker.show(function(items) {
 			typeBox.innerText = items[0].text;
 			typeBox.style.color = "#000";
+			param.broadband_type = items[0].text;
 			//返回 false 可以阻止选择框的关闭
 			//return false;
 		});
@@ -66,6 +71,44 @@ mui.ready(function(){
 			 */
 			endDateBox.innerText = rs.text;
 			endDateBox.style.color = "#000";
+			param.end_date = rs.text;
 		});
 	}, false);
+	localStorage.setItem("AppID","A6913395502970");
+	localStorage.setItem("AppKey","9D0A90B8-E4AE-F4C7-FFF0-5CE24A68978A");
+	var saveBtn = document.getElementById("save");
+	var appID = localStorage.getItem("AppID");
+	var appKey = localStorage.getItem("AppKey");
+	saveBtn.addEventListener('tap',function(){
+		var now = Date.now();
+		var appkey = SHA1(appID+"UZ"+appKey+"UZ"+now)+"."+now;
+		
+		param.name = document.getElementById("name").value;
+		param.phonenumber = document.getElementById("phone").value;
+		param.address = document.getElementById("address").value;
+		
+		if(param.name == ''){
+			mui.alert("姓名不能为空！");
+			return;
+		}
+		mui.ajax('https://d.apicloud.com/mcm/api/Competitor_Info',{
+			data:JSON.stringify(param),
+			dataType:'json',//服务器返回json格式数据
+			type:'post',//HTTP请求类型
+			timeout:10000,//超时时间设置为10秒；
+			headers:{
+				'Content-Type':'application/json',
+				"X-APICloud-AppId": appID,
+    			"X-APICloud-AppKey": appkey
+			},
+			success:function(data){
+				//服务器返回响应，根据响应结果，分析是否登录成功；
+				console.log(data);
+			},
+			error:function(xhr,type,errorThrown){
+				//异常处理；
+				console.log(type);
+			}
+		});
+	});
 });
