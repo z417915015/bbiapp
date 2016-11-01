@@ -8,6 +8,7 @@ mui.ready(function(){
 		layer: 3
 	});
 	cityPicker3.setData(cityData3);
+	cityPicker3.pickers[0].setSelectedValue('640000');
 	var showCityPickerButton = document.getElementById('city');
 	var cityResult3 = document.getElementById('city');
 	showCityPickerButton.addEventListener('tap', function(event) {
@@ -22,30 +23,19 @@ mui.ready(function(){
 	}, false);
 	
 	//1级联 宽带类型
-	var typeData = [{
-			value: 'YD',
-			text: '移动'
-		}, {
-			value: 'DX',
-			text: '电信'
-		}, {
-			value: 'LT',
-			text: '联通'
-		}, {
-			value: 'QT',
-			text: '其它'
-		}];
-	var typePicker = new mui.PopPicker();
-	typePicker.setData(typeData);
 	var typeBox = document.getElementById("type");
 	typeBox.addEventListener('tap', function(event) {
-		typePicker.show(function(items) {
-			typeBox.innerText = items[0].text;
-			typeBox.style.color = "#000";
-			param.broadband_type = items[0].text;
-			//返回 false 可以阻止选择框的关闭
-			//return false;
-		});
+		var bts=[{title:"移动"},{title:"电信"},{title:"联通"},{title:"其它"}];
+		plus.nativeUI.actionSheet({title:"网络类型",cancel:"取消",buttons:bts},
+			function(e){
+				if (e.index >0) {
+					typeBox.innerText = bts[e.index-1].title;
+					typeBox.style.color = "#000";
+					param.broadband_type = bts[e.index-1].title;
+				}
+			}
+		);
+
 	}, false);
 	
 	//日期选择
@@ -91,6 +81,7 @@ mui.ready(function(){
 			mui.alert("姓名不能为空！");
 			return;
 		}
+		plus.nativeUI.showWaiting("保存中...");
 		mui.ajax('https://d.apicloud.com/mcm/api/Competitor_Info',{
 			data:JSON.stringify(param),
 			dataType:'json',//服务器返回json格式数据
@@ -103,11 +94,15 @@ mui.ready(function(){
 			},
 			success:function(data){
 				//服务器返回响应，根据响应结果，分析是否登录成功；
-				console.log(data);
+//				console.log(data);
+				plus.nativeUI.closeWaiting();
+				mui.alert("保存成功！");
 			},
 			error:function(xhr,type,errorThrown){
 				//异常处理；
-				console.log(type);
+//				console.log(type);
+				plus.nativeUI.closeWaiting();
+				mui.alert("保存失败！");
 			}
 		});
 	});
