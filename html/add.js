@@ -64,8 +64,8 @@ mui.ready(function(){
 			param.end_date = rs.text;
 		});
 	}, false);
-	localStorage.setItem("AppID","A6913395502970");
-	localStorage.setItem("AppKey","9D0A90B8-E4AE-F4C7-FFF0-5CE24A68978A");
+//	localStorage.setItem("AppID","A6913395502970");
+//	localStorage.setItem("AppKey","9D0A90B8-E4AE-F4C7-FFF0-5CE24A68978A");
 	var saveBtn = document.getElementById("save");
 	var appID = localStorage.getItem("AppID");
 	var appKey = localStorage.getItem("AppKey");
@@ -97,6 +97,7 @@ mui.ready(function(){
 //				console.log(data);
 				plus.nativeUI.closeWaiting();
 				mui.alert("保存成功！");
+				mui.back();
 			},
 			error:function(xhr,type,errorThrown){
 				//异常处理；

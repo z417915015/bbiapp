@@ -1,1 +1,73 @@
-null
+{
+  "html/main_sub.html": {
+    "resources": [
+      "js/arttemplate.js",
+      "html/main_sub.js",
+      "js/mui.min.js",
+      "js/SHA1.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf"
+    ],
+    "refer": []
+  },
+  "main.html": {
+    "resources": [
+      "html/main_sub.html",
+      "fonts/mui.ttf",
+      "js/app.js",
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": [
+      "html/main_sub.html",
+      "html/add.html",
+      "setting.html"
+    ]
+  },
+  "html/add.html": {
+    "resources": [
+      "js/mui.picker.js",
+      "html/add.js",
+      "js/SHA1.js",
+      "js/mui.poppicker.js",
+      "css/mui.picker.all.css",
+      "html/city.data-3.js",
+      "css/mui.poppicker.css",
+      "css/mui.picker.css",
+      "js/mui.picker.all.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css"
+    ],
+    "refer": []
+  },
+  "login.html": {
+    "resources": [
+      "js/app.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/mui.enterfocus.js"
+    ],
+    "refer": [
+      "main.html"
+    ]
+  },
+  "setting.html": {
+    "resources": [
+      "libs/easymob-webim-sdk/easemob.im-1.0.5.js",
+      "libs/easymob-webim-sdk/json2.js",
+      "libs/easymob-webim-sdk/jquery-1.11.1.js",
+      "js/mui.locker.js",
+      "js/feedback.js",
+      "css/feedback-page.css",
+      "js/feedback-page.js",
+      "libs/easymob-webim-sdk/strophe-custom-2.0.0.js",
+      "js/mui.view.js",
+      "images/iconfont-tianjia.png"
+    ],
+    "refer": [
+      "login.html"
+    ]
+  }
+}

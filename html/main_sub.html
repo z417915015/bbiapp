@@ -13,12 +13,27 @@
 		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
 			<div class="mui-scroll">
 				<!--数据列表-->
-				<ul class="mui-table-view mui-table-view-chevron">
+				<ul class="mui-table-view mui-table-view-chevron" id="list">
 					
 				</ul>
 			</div>
 		</div>
+		
+		<script type="text/html" id="list_temp">
+			<a class="mui-navigate-right">
+            	{{name}}
+                <p>
+                	<span class="mui-badge mui-badge-blue mui-badge-inverted" style="margin-right: 10px;">{{broadband_type}}</span>
+                	{{if (end_date)}}
+                		到期时间：{{end_date | dateFormat}}
+            		{{/if}}
+                </p>
+            </a>
+		</script>
+		
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/SHA1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/arttemplate.js" type="text/javascript" charset="utf-8"></script>
 		<script src="main_sub.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 

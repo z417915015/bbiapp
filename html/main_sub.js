@@ -10,22 +10,30 @@ mui.init({
 		}
 	}
 });
+
+var listBox = document.getElementById("list");
+var appID = localStorage.getItem("AppID");
+var appKey = localStorage.getItem("AppKey");
+var page = 1;
+var filter = {
+	fields:{"id":true,"name":true,"broadband_type":true,"end_date":true},
+    "order": "end_date DESC", 
+    "limit": 2,
+    "skip" : 0
+}
+//console.log(encodeURIComponent(JSON.stringify(filter)));
 /**
  * 下拉刷新具体业务实现
  */
 function pulldownRefresh() {
 	setTimeout(function() {
-		var table = document.body.querySelector('.mui-table-view');
-		var cells = document.body.querySelectorAll('.mui-table-view-cell');
-		for (var i = cells.length, len = i + 3; i < len; i++) {
-			var li = document.createElement('li');
-			li.className = 'mui-table-view-cell';
-			li.innerHTML = '<a class="mui-navigate-right">Item ' + (i + 1) + '</a>';
-			//下拉刷新，新纪录插到最前面；
-			table.insertBefore(li, table.firstChild);
-		}
+		listBox.innerHTML = '';
+		page = 1;
+		filter.skip = 0;
+		mui('#pullrefresh').pullRefresh().refresh(true);
+		get();
 		mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
-	}, 1500);
+	}, 500);
 }
 var count = 0;
 /**
@@ -33,17 +41,52 @@ var count = 0;
  */
 function pullupRefresh() {
 	setTimeout(function() {
-		mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
-		var table = document.body.querySelector('.mui-table-view');
-		var cells = document.body.querySelectorAll('.mui-table-view-cell');
-		for (var i = cells.length, len = i + 20; i < len; i++) {
-			var li = document.createElement('li');
-			li.className = 'mui-table-view-cell';
-			li.innerHTML = '<a class="mui-navigate-right">Item ' + (i + 1) + '</a>';
-			table.appendChild(li);
-		}
-	}, 1500);
+		filter.skip = (page-1)*filter.limit;
+		get();
+	}, 500);
 }
+
+function get(){
+	var now = Date.now();
+	var appkey = SHA1(appID+"UZ"+appKey+"UZ"+now)+"."+now;
+	mui.ajax("https://d.apicloud.com/mcm/api/Competitor_Info?filter=" + encodeURIComponent(JSON.stringify(filter)),{
+			dataType:'json',//服务器返回json格式数据
+			type:'get',//HTTP请求类型
+			timeout:10000,//超时时间设置为10秒；
+			headers:{
+				'Content-Type':'application/json',
+				"X-APICloud-AppId": appID,
+    			"X-APICloud-AppKey": appkey
+			},
+			success:function(data){
+				//服务器返回响应，根据响应结果，分析是否登录成功；
+//				console.log(data);
+				mui.each(data,function(index,item){
+					var li = document.createElement('li');
+					li.id = item.id;
+					li.className = "mui-table-view-cell";
+					li.innerHTML = template('list_temp',item);
+					listBox.appendChild(li);
+				});
+				if(data.length < filter.limit){
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(true); //参数为true代表没有更多数据了。
+				}else{
+					page++;
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(false); //参数为true代表没有更多数据了。
+				}
+			},
+			error:function(xhr,type,errorThrown){
+				//异常处理；
+//				console.log(type);
+			}
+		});
+}
+
+template.helper('dateFormat',function(date,format){
+	var date = new Date(date);
+	return date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+});
+
 if (mui.os.plus) {
 	mui.plusReady(function() {
 		setTimeout(function() {

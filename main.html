@@ -15,13 +15,21 @@
 			.mui-btn {
 				padding: 10px;
 			}
+			.mui-icon{
+				font-weight: bold;
+			}
 		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav" style="padding-right: 15px;">
-			<h1 class="mui-title">登录模板</h1>
-			<button id='setting' class=" mui-pull-right mui-btn-link">设置</button>
+			<h1 class="mui-title">BBIAPP</h1>
+			<a id='setting' class=" mui-pull-right mui-btn-link">
+				<span class="mui-icon mui-icon-gear-filled"></span>
+			</a>
+			<a id='add' class=" mui-pull-right mui-btn-link" style="margin-right: 20px;">
+				<span class="mui-icon mui-icon-plusempty"></span>
+			</a>
 		</header>
 		<div class="mui-content">
 			
@@ -47,8 +55,7 @@
 				var account = doc.getElementById('account');
 				//
 				window.addEventListener('show', function() {
-					var state = app.getState();
-					account.innerText = state.account;
+					
 				}, false);
 				
 				
@@ -56,6 +63,10 @@
 					var settingPage = $.preload({
 						"id": 'setting',
 						"url": 'setting.html'
+					});
+					var addPage = $.preload({
+						"id": 'add.html',
+						"url": 'html/add.html'
 					});
 					
 					var contentWebview = null;
@@ -83,6 +94,24 @@
 							}
 						});
 					});
+					
+					//新增
+					var addBtn = document.getElementById("add");
+					addBtn.addEventListener('tap',function(){
+						$.openWindow({
+							id: 'add.html',
+							show: {
+								aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'hide'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					});
+					
 					//--
 					$.oldBack = mui.back;
 					var backButtonPress = 0;
