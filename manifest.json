@@ -212,7 +212,8 @@
 				],
 				"refer": [
 					"setting.html",
-					"html/add.html"
+					"html/add.html",
+					"html/detail.html"
 				],
 				"priority": 1
 			},
@@ -304,6 +305,17 @@
 					"js/mui.min.js",
 					"fonts/mui.ttf",
 					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"html/detail.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"js/arttemplate.js",
+					"css/mui.min.css",
+					"js/SHA1.js"
 				],
 				"refer": [],
 				"priority": 0

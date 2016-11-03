@@ -3,6 +3,10 @@ mui.init();
 mui.ready(function(){
 	var param = {};//
 	
+	var user = JSON.parse(localStorage.getItem('$state'));
+	console.log(user.account);
+	param.createBy = user.account;
+	
 	//3级联示例 地区
 	var cityPicker3 = new mui.PopPicker({
 		layer: 3

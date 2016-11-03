@@ -18,9 +18,31 @@ var page = 1;
 var filter = {
 	fields:{"id":true,"name":true,"broadband_type":true,"end_date":true},
     "order": "end_date DESC", 
-    "limit": 2,
+    "limit": 10,
     "skip" : 0
 }
+
+var detailPage = null;
+mui('#list').on('tap','li',function(){
+	var id = this.getAttribute('id');
+	if (!detailPage) {
+		detailPage = plus.webview.getWebviewById('detail.html');
+	}
+	mui.fire(detailPage,'show',{id:id});
+	mui.openWindow({
+		id: 'detail.html',
+		show: {
+			aniShow: 'pop-in'
+		},
+		styles: {
+			popGesture: 'hide'
+		},
+		waiting: {
+			autoShow: false
+		}
+	});
+});
+
 //console.log(encodeURIComponent(JSON.stringify(filter)));
 /**
  * 下拉刷新具体业务实现

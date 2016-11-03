@@ -21,7 +21,8 @@
     "refer": [
       "html/main_sub.html",
       "html/add.html",
-      "setting.html"
+      "setting.html",
+      "html/detail.html"
     ]
   },
   "html/add.html": {
@@ -47,10 +48,12 @@
       "js/mui.min.js",
       "css/mui.min.css",
       "css/style.css",
-      "js/mui.enterfocus.js"
+      "js/mui.enterfocus.js",
+      "fonts/mui.ttf"
     ],
     "refer": [
-      "main.html"
+      "main.html",
+      "reg.html"
     ]
   },
   "setting.html": {
@@ -64,7 +67,33 @@
       "js/feedback-page.js",
       "libs/easymob-webim-sdk/strophe-custom-2.0.0.js",
       "js/mui.view.js",
-      "images/iconfont-tianjia.png"
+      "images/iconfont-tianjia.png",
+      "js/app.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css"
+    ],
+    "refer": [
+      "login.html"
+    ]
+  },
+  "html/detail.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "js/arttemplate.js",
+      "css/mui.min.css",
+      "js/SHA1.js"
+    ],
+    "refer": []
+  },
+  "reg.html": {
+    "resources": [
+      "js/app.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css"
     ],
     "refer": [
       "login.html"

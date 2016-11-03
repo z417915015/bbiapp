@@ -172,6 +172,10 @@
 					} else if (settings.autoLogin && state.token) {
 						toMain();
 					} else {
+						if(state.account){
+							document.getElementById("account").innerHTML = state.account;
+						}
+						
 						app.setState(null);
 						
 					}
@@ -192,14 +196,14 @@
 							account: accountBox.value,
 							password: passwordBox.value
 						};
-						toMain();
-//						app.login(loginInfo, function(err) {
-//							if (err) {
-//								plus.nativeUI.toast(err);
-//								return;
-//							}
-//							toMain();
-//						});
+//						toMain();
+						app.login(loginInfo, function(err) {
+							if (err) {
+								plus.nativeUI.toast(err);
+								return;
+							}
+							toMain();
+						});
 					});
 					$.enterfocus('#login-form input', function() {
 						$.trigger(loginButton, 'tap');
@@ -245,9 +249,9 @@
 						});
 					}, false);
 					//
-					window.addEventListener('resize', function() {
-						oauthArea.style.display = document.body.clientHeight > 400 ? 'block' : 'none';
-					}, false);
+//					window.addEventListener('resize', function() {
+//						oauthArea.style.display = document.body.clientHeight > 400 ? 'block' : 'none';
+//					}, false);
 					//
 					var backButtonPress = 0;
 					$.back = function(event) {

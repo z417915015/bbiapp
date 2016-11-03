@@ -6,6 +6,14 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			a{
+				color: #333 !important;
+			}
+			a>span{
+				color: #000000 !important;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -14,36 +22,85 @@
 		    <h1 class="mui-title" id="title"></h1>
 		</header>
 		<div class="mui-content">
-		    <ul class="mui-table-view" id="list">
+		    <ul class="mui-table-view" id="result">
 	            
 	        </ul>
 		</div>
 		
-		<script type="text/html" id="list_temp">
+		<script type="text/html" id="result_temp">
 			<li class="mui-table-view-cell">
-                <a>姓名<span class="mui-pull-right">Hbuilder</span></a>
+                <a>姓名<span class="mui-pull-right">{{name}}</span></a>
             </li>
             <li class="mui-table-view-cell">
-                <a>联系电话<span class="mui-pull-right">Hbuilder</span></a>
+                <a>联系电话<span class="mui-pull-right">{{phonenumber}}</span></a>
             </li>
             <li class="mui-table-view-cell">
-                <a>地区<span class="mui-pull-right">Hbuilder</span></a>
+                <a>地区<span class="mui-pull-right">{{area}}</span></a>
             </li>
             <li class="mui-table-view-cell">
-                <a>详细地址<span class="mui-pull-right">Hbuilder</span></a>
+                <a>详细地址<span class="mui-pull-right">{{address}}</span></a>
             </li>
             <li class="mui-table-view-cell">
-                <a>宽带类型<span class="mui-pull-right">Hbuilder</span></a>
+                <a>宽带类型<span class="mui-pull-right">{{broadband_type}}</span></a>
             </li>
             <li class="mui-table-view-cell">
-                <a>到期时间<span class="mui-pull-right">Hbuilder</span></a>
+                <a>到期时间<span class="mui-pull-right">{{end_date | dateFormat}}</span></a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a><span class="mui-pull-right">{{由  {{createdBy}} 上传于 {{createdAt | dateFormat}}}}</span></a>
             </li>
 		</script>
 		
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/SHA1.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/arttemplate.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			var appID = localStorage.getItem("AppID");
+			var appKey = localStorage.getItem("AppKey");
+			
+			var ul = document.getElementById("result");
+			var title = document.getElementById("title");
+			
+			window.addEventListener('show',function(event){
+				var id = event.detail.id;
+				get(id);
+			});
+			
+			function get(id){
+				var now = Date.now();
+				var appkey = SHA1(appID+"UZ"+appKey+"UZ"+now)+"."+now;
+				
+				mui.ajax("https://d.apicloud.com/mcm/api/Competitor_Info/"+id,{
+					dataType:'json',//服务器返回json格式数据
+					type:'get',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					headers:{
+						'Content-Type':'application/json',
+						"X-APICloud-AppId": appID,
+		    			"X-APICloud-AppKey": appkey
+					},
+					success:function(data){
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+//						console.log(data);
+						title.innerHTML = data.name;
+						var html = template('result_temp',data);
+						ul.innerHTML = html;
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+		//				console.log(type);
+						
+					}
+				});
+			}
+			
+			template.helper('dateFormat',function(date,format){
+				var date = new Date(date);
+				return date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+			});
+				
+			
 		</script>
 	</body>
 
